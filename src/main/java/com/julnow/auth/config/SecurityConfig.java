@@ -18,7 +18,13 @@ public class SecurityConfig {
                 // No session, every request carries its own token
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/actuator/health", "/api/auth/**").permitAll()
+                        .requestMatchers(
+                                "/actuator/health",
+                                "/api/auth/**",
+                                "/swagger-ui.html",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**"
+                        ).permitAll()
                         .anyRequest().authenticated());
 
         return http.build();
